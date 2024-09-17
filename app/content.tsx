@@ -1,29 +1,48 @@
-"use client"
-
-import React from "react";
+import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 import "bootstrap/dist/css/bootstrap.css";
 
-export default function Content() {
+const supabase = createClient("https://ezidupuxwuqsuksdgmws.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV6aWR1cHV4d3Vxc3Vrc2RnbXdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY1OTI4NjgsImV4cCI6MjA0MjE2ODg2OH0.CTW9IWAhxf3V5vSDICpKSVB8yAMSLO7kgmpPXzOR9IA");
 
-    return <>
-        <div className="container py-5">
+function App() {
+  const [countries, setCountries] = useState([]);
 
-            <div className="row justify-content-center">
-                <div className="col-lg-6">
+  useEffect(() => {
+    getCountries();
+  }, []);
 
-                    <h1 className="text-center m-0 mb-3">Country List</h1>
+  async function getCountries() {
+    const { data } = await supabase.from("countries").select();
+    setCountries(data);
+  }
 
-                    <ul className="list-group">
-                        <li className="list-group-item">🇨🇦 Canada</li>
-                        <li className="list-group-item">🇺🇸 United States</li>
-                        <li className="list-group-item">🇧🇷 Brazil</li>
-                    </ul>
+  return (
 
-                    <p className="text-center mt-2 text-muted">TODO: Connect to database</p>
+    <div className="container py-5">
 
-                </div>
-            </div>
+      <div className="row justify-content-center">
+        <div className="col-lg-6">
+
+          <h1 className="text-center m-0 mb-3">Country List :)</h1>
+
+          <ul className="list-group">
+
+            {countries.map((country) => (
+              <li key={country.name} className="list-group-item">
+                {country.emoji}
+                &nbsp;
+                {country.name}
+              </li>
+            ))}
+          </ul>
+
+          <p className="text-center mt-2 text-muted">TODO: Connect to database</p>
 
         </div>
-    </>
+      </div>
+
+    </div>
+  );
 }
+
+export default App;
