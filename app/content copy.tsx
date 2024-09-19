@@ -14,7 +14,7 @@ export default function Content() {
                     <h1 className="text-center m-0 mb-3">Country List - My new List</h1>
 
                     <ul className="list-group">
-                        <li className="list-group-item">🇨🇦 🍁Canada</li>
+                        <li className="list-group-item">🇨🇦 Canada</li>
                         <li className="list-group-item">🇺🇸 United States</li>
                         <li className="list-group-item">🇧🇷 Brazil</li>
                     </ul>
