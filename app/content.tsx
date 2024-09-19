@@ -1,29 +1,28 @@
-"use client"
-
-import React from "react";
+import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 import "bootstrap/dist/css/bootstrap.css";
+// Haeytham Almalak  2024
+const supabase = createClient("https://dxuzaqwcfuxhyqhsqyje.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4dXphcXdjZnV4aHlxaHNxeWplIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY3NjYxMjcsImV4cCI6MjA0MjM0MjEyN30.VimBEpc7DvW2dmuiSFD0eOceUZ-mGI-Ys8DA6Ml4Hzo");
 
-export default function Content() {
+function App() {
+  const [countries, setCountries] = useState([]);
 
-    return <>
-        <div className="container py-5">
+  useEffect(() => {
+    getCountries();
+  }, []);
 
-            <div className="row justify-content-center">
-                <div className="col-lg-6">
+  async function getCountries() {
+    const { data } = await supabase.from("countries").select();
+    setCountries(data);
+  }
 
-                    <h1 className="text-center m-0 mb-3">Country List</h1>
-
-                    <ul className="list-group">
-                        <li className="list-group-item">🇨🇦 Canada</li>
-                        <li className="list-group-item">🇺🇸 United States</li>
-                        <li className="list-group-item">🇧🇷 Brazil</li>
-                    </ul>
-
-                    <p className="text-center mt-2 text-muted">TODO: Connect to database</p>
-
-                </div>
-            </div>
-
-        </div>
-    </>
+  return (
+    <ul>
+      {countries.map((country) => (
+        <li key={country.name}>{country.name}</li>
+      ))}
+    </ul>
+  );
 }
+
+export default App;
