@@ -18,11 +18,34 @@ function App() {
   }
 
   return (
-    <ul>
-      {countries.map((country) => (
-        <li key={country.name}>{country.name}</li>
-      ))}
-    </ul>
+
+    <div className="container py-5">
+
+      <div className="row justify-content-center">
+        <div className="col-lg-6">
+
+          <h1 className="text-center m-0 mb-3">Country List :)</h1>
+
+          <ul className="list-group">
+
+            {countries.map((country) => (
+              <li key={country.name} 
+              className="list-group-item">
+                {country.emoji}
+                &nbsp;
+                {country.name}
+                </li>
+            ))}
+
+          </ul>
+
+          <p className="text-center mt-2 text-muted">TODO: Connect to database</p>
+
+        </div>
+      </div>
+
+    </div>
+
   );
 }
 
